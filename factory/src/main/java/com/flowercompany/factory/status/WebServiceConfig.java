@@ -1,4 +1,4 @@
-package com.flowercompany.factory.ws;
+package com.flowercompany.factory.status;
 
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
@@ -28,7 +28,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
         wsdl11Definition.setPortTypeName("StatusPort");
         wsdl11Definition.setLocationUri("/ws");
-        wsdl11Definition.setTargetNamespace("http://soap-example.com");
+        wsdl11Definition.setTargetNamespace("http://ws.status.factory.flowercompany.com");
         wsdl11Definition.setSchema(statusSchema);
         return wsdl11Definition;
     }

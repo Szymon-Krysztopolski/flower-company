@@ -1,6 +1,6 @@
-package com.flowercompany.factory.ws;
+package com.flowercompany.factory.status;
 
-import com.soap_example.Status;
+import com.flowercompany.factory.status.ws.Status;
 import org.springframework.stereotype.Service;
 
 @Service
