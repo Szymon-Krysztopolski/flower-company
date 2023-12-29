@@ -1,16 +1,16 @@
 package com.flowercompany.factory.ws;
 
-import com.flowercompany.factory.ws.status.Response;
+import com.soap_example.Status;
 import org.springframework.stereotype.Service;
 
 @Service
 public class StatusService {
-    public Response getResponse(String id) {
-        Response response = new Response();
+    public Status getStatus(String id) {
+        Status status = new Status();
 
         // TODO
-        response.setStatus("OK");
-        response.setPrice(50);
-        return response;
+        status.setCode("OK");
+        status.setPrice(50);
+        return status;
     }
 }

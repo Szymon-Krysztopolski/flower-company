@@ -1,9 +1,11 @@
 package com.flowercompany.factory.ws;
 
-import com.flowercompany.factory.ws.status.GetResponse;
-import com.flowercompany.factory.ws.status.GetStatus;
+import com.soap_example.GetResponse;
+import com.soap_example.GetStatus;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
+import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
+import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
 @Endpoint
 public class StatusEndpoint {
@@ -13,9 +15,11 @@ public class StatusEndpoint {
         this.service = service;
     }
 
+    @PayloadRoot(namespace = "http://soap-example.com/", localPart = "getStatus")
+    @ResponsePayload
     public GetResponse getResponse(@RequestPayload GetStatus getStatus) {
         GetResponse response = new GetResponse();
-        response.setResponse(service.getResponse(getStatus.getId()));
+        response.setStatus(service.getStatus(getStatus.getId()));
         return response;
     }
 }

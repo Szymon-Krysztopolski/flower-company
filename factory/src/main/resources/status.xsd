@@ -16,14 +16,14 @@
     <xs:element name="getResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="response" type="tns:response"/>
+                <xs:element name="status" type="tns:status"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
-    <xs:complexType name="response">
+    <xs:complexType name="status">
         <xs:sequence>
-            <xs:element name="status" type="xs:string"/>
+            <xs:element name="code" type="xs:string"/>
             <xs:element name="price" type="xs:int"/>
         </xs:sequence>
     </xs:complexType>
