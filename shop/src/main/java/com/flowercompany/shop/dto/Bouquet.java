@@ -1,6 +1,6 @@
-package com.flowercompany.gateway.dto;
+package com.flowercompany.shop.dto;
 
-import com.flowercompany.gateway.domain.BouquetItem;
+import com.flowercompany.shop.domain.BouquetItem;
 import lombok.Data;
 
 import java.util.List;
