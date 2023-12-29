@@ -1,5 +1,5 @@
 import React from "react"
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, NavLink } from "react-router-dom";
 import MakeOrder from "./MakeOrder";
 import ShowOrders from "./ShowOrders";
 
@@ -10,16 +10,16 @@ export default function App() {
                 <nav>
                     <ul>
                         <li>
-                            <Link to="/make-order">Make Order</Link>
+                            <NavLink to="/" activeClassName="active">Make Order</NavLink>
                         </li>
                         <li>
-                            <Link to="/show-orders">Show Orders</Link>
+                            <NavLink to="/show-orders" activeClassName="active">Show Orders</NavLink>
                         </li>
                     </ul>
                 </nav>
 
                 <Routes>
-                    <Route path="/make-order" element={<MakeOrder />} />
+                    <Route path="/" element={<MakeOrder />} />
                     <Route path="/show-orders" element={<ShowOrders />} />
                 </Routes>
             </div>
