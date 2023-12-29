@@ -1,4 +1,4 @@
-package com.flowercompany.gateway.domain;
+package com.flowercompany.shop.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
