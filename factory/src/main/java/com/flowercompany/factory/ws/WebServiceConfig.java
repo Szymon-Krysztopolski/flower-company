@@ -23,7 +23,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
         return new ServletRegistrationBean<>(servlet, "/ws/*");
     }
 
-    @Bean(name = "com/flowercompany/factory/ws/status")
+    @Bean(name = "status")
     public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema statusSchema) {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
         wsdl11Definition.setPortTypeName("StatusPort");
