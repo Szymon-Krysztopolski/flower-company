@@ -4,12 +4,15 @@ function Rectangle({ src, title, count, onCountChange }) {
     return (
         <div className="rectangle">
             <img src={src} alt={title} />
-            <h3>{title}</h3>
-            <div className="counter">
-                <button onClick={() => onCountChange(title, count > 0 ? count - 1 : 0)}>-</button>
-                <span>{count}</span>
-                <button onClick={() => onCountChange(title, count + 1)}>+</button>
+            <div className="rectangle-row">
+                <div className="rectangle-title">{title}</div>
+                <div className="counter">
+                    <button onClick={() => onCountChange(title, count > 0 ? count - 1 : 0)}>-</button>
+                    <span>{count}</span>
+                    <button onClick={() => onCountChange(title, count + 1)}>+</button>
+                </div>
             </div>
+            
         </div>
     );
 }
@@ -88,7 +91,10 @@ export default function MakeOrder() {
                         <SummaryItem key={index} title={item.title} count={item.count} onCountChange={handleCountChange} onDelete={handleDelete} />
                     ))}
                 </table>
-                {hasItems && <button onClick={handleOrder}>Make Order</button>}
+                <div>
+                    {hasItems && <button className="make-order-button" onClick={handleOrder}>Make Order</button>}
+                </div>
+                
             </div>
         </div>
     );
