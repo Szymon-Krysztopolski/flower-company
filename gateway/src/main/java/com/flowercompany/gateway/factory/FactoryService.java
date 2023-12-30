@@ -6,8 +6,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class FactoryService {
-
-    private StatusClient statusClient;
+    private final StatusClient statusClient;
 
     @Autowired
     public FactoryService(StatusClient statusClient) {
@@ -16,6 +15,8 @@ public class FactoryService {
 
     @PostConstruct
     public void test() {
-        statusClient.getStatus("1");
+        System.out.println(statusClient);
+        System.out.println(statusClient.getStatus("1").getStatus().getCode());
+        System.out.println(statusClient.getStatus("1").getStatus().getPrice());
     }
 }
