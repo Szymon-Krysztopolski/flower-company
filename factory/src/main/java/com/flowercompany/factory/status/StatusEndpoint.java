@@ -1,7 +1,7 @@
 package com.flowercompany.factory.status;
 
-import com.flowercompany.factory.status.ws.GetResponse;
-import com.flowercompany.factory.status.ws.GetStatus;
+import com.flowercompany.factory.status.ws.GetStatusResponse;
+import com.flowercompany.factory.status.ws.GetStatusRequest;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
@@ -15,11 +15,11 @@ public class StatusEndpoint {
         this.service = service;
     }
 
-    @PayloadRoot(namespace = "http://ws.status.factory.flowercompany.com", localPart = "getStatus")
+    @PayloadRoot(namespace = "http://ws.status.factory.flowercompany.com", localPart = "getStatusRequest")
     @ResponsePayload
-    public GetResponse getResponse(@RequestPayload GetStatus getStatus) {
-        GetResponse response = new GetResponse();
-        response.setStatus(service.getStatus(getStatus.getId()));
+    public GetStatusResponse getStatus(@RequestPayload GetStatusRequest request) {
+        GetStatusResponse response = new GetStatusResponse();
+        response.setStatus(service.getStatus(request.getId()));
         return response;
     }
 }

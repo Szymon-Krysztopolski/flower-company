@@ -5,7 +5,7 @@
            elementFormDefault="qualified"
 >
 
-    <xs:element name="getStatus">
+    <xs:element name="getStatusRequest">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="id" type="xs:string"/>
@@ -13,7 +13,7 @@
         </xs:complexType>
     </xs:element>
 
-    <xs:element name="getResponse">
+    <xs:element name="getStatusResponse">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="status" type="tns:status"/>
