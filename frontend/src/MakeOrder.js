@@ -1,4 +1,30 @@
 import React, { useState } from "react"
+function Modal({ isOpen, orderStatus, orderId, onClose }) {
+    if (!isOpen) return null;
+    return (
+        <div className="modal">
+            <div className="modal-content">
+                {orderStatus === 'success' && <strong>Order placed successfully!</strong>}
+                {orderStatus === 'failure' && <strong>Failed to place order.</strong>}
+                {orderId && <div>Your order has number: {orderId}</div>}
+                <button onClick={onClose}>Close</button>
+            </div>
+        </div>
+    );
+}
+function ModalPrice({ isOpen, orderId, orderStatus, orderPrice, onClose }) {
+    if (!isOpen) return null;
+    return (
+        <div className="modal">
+            <div className="modal-content">
+                {orderId && <div>Your order number: <strong>{orderId}</strong></div>}
+                {orderStatus && <div>Status: <strong>{orderStatus}</strong></div>}
+                {orderPrice && <div>Price: <strong>{orderPrice}</strong></div>}
+                <button onClick={onClose}>Close</button>
+            </div>
+        </div>
+    );
+}
 
 function Rectangle({ src, title, count, onCountChange }) {
     return (
@@ -16,7 +42,6 @@ function Rectangle({ src, title, count, onCountChange }) {
         </div>
     );
 }
-
 function SummaryItem({ title, count, onCountChange, onDelete }) {
     return (
         <tr>
@@ -32,9 +57,6 @@ function SummaryItem({ title, count, onCountChange, onDelete }) {
         </tr>
     );
 }
-
-
-
 export default function MakeOrder() {
     const images = [
         { src: 'white-rose.jpg', title: 'White rose' },
@@ -43,17 +65,17 @@ export default function MakeOrder() {
         { src: 'iris.jpg', title: 'Iris' },
         { src: 'tulip.jpg', title: 'Tulip' },
     ];
-
     const [selectedItems, setSelectedItems] = useState(images.map(image => ({ title: image.title, count: 0 })));
-
     const handleCountChange = (title, newCount) => {
         setSelectedItems(prevItems => prevItems.map(item => item.title === title ? { ...item, count: newCount } : item));
     };
-
     const handleDelete = (title) => {
         setSelectedItems(prevItems => prevItems.map(item => item.title === title ? { ...item, count: 0 } : item));
     };
+    const [modalOpen, setModalOpen] = useState(false);
 
+    const [orderStatus, setOrderStatus] = useState('');
+    const [orderId, setOrderId] = useState('');
     const handleOrder = async () => {
         const order = {
             bouquet: selectedItems.filter(item => item.count > 0).map(item => ({
@@ -61,7 +83,6 @@ export default function MakeOrder() {
                 amount: item.count
             }))
         };
-
         const response = await fetch('http://127.0.0.1:8081/api/v1/order', {
             method: 'POST',
             headers: {
@@ -69,15 +90,44 @@ export default function MakeOrder() {
             },
             body: JSON.stringify(order)
         });
+        const OrderId = await response.text();
 
         if (response.ok) {
-            alert('Order placed successfully!');
+            setOrderStatus('success');
         } else {
-            alert('Failed to place order.');
+            setOrderStatus('failure');
+        }
+        setOrderId(OrderId);
+        setModalOpen(true);
+    };
+    const hasItems = selectedItems.some(item => item.count > 0);
+
+    const [orders, setOrders] = useState([]);
+
+    const closeModal = async () => {
+        setModalOpen(false);
+        setSelectedItems(images.map(image => ({ title: image.title, count: 0 })));
+        let orderStatusResponse;
+        while (!orderStatusResponse) {
+            const response = await fetch(`http://127.0.0.1:8081/api/v1/status/${orderId}`);
+            if (response.ok) {
+                const jsonResponse = await response.json();
+                setOrders(prevOrders => [...prevOrders, {
+                    id: jsonResponse.id,
+                    status: jsonResponse.status,
+                    price: jsonResponse.price,
+                    isOpen: true
+                }]);
+                orderStatusResponse = true;
+            }
         }
     };
+    
+    
 
-    const hasItems = selectedItems.some(item => item.count > 0);
+    const closeModalPrice = (index) => {
+        setOrders(prevOrders => prevOrders.map((order, i) => i === index ? {...order, isOpen: false} : order));
+    };
 
     return (
         <div className="container">
@@ -96,6 +146,18 @@ export default function MakeOrder() {
                 </div>
                 
             </div>
+            <Modal isOpen={modalOpen} orderStatus={orderStatus} orderId={orderId} onClose={closeModal} />
+            {orders.map((order, index) => (
+                <ModalPrice 
+                    key={index} 
+                    isOpen={order.isOpen} 
+                    orderId={order.id} 
+                    orderStatus={order.status} 
+                    orderPrice={order.price} 
+                    onClose={() => closeModalPrice(index)} 
+                />
+            ))}
+
         </div>
     );
 }
