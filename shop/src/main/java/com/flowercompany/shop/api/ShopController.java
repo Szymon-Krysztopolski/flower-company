@@ -1,6 +1,7 @@
 package com.flowercompany.shop.api;
 
 import com.flowercompany.shop.dto.Bouquet;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,8 +18,12 @@ public class ShopController {
     }
 
     @PostMapping("/order")
-    public ResponseEntity<String> order(@RequestBody Bouquet bouquet) throws Exception {
-        return ResponseEntity.ok(service.order(bouquet.getBouquet()));
+    public ResponseEntity<String> order(@RequestBody Bouquet bouquet) {
+        try {
+            return ResponseEntity.ok(service.order(bouquet.getBouquet()));
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Something goes wrong...");
+        }
     }
 
     @GetMapping("/orders")
