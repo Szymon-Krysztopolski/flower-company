@@ -16,7 +16,7 @@ public class WebClientConfig {
     @Bean
     public StatusClient statusClient(Jaxb2Marshaller marshaller) {
         StatusClient client = new StatusClient();
-        client.setDefaultUri("http://localhost:8083/ws");
+        client.setDefaultUri("http://localhost:8083/ws"); // todo - use variable
         client.setMarshaller(marshaller);
         client.setUnmarshaller(marshaller);
         return client;
