@@ -1,13 +1,14 @@
 package com.flowercompany.gateway.shop;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.WebClient;
 
 @Configuration
-public class WebClientConfig {
+public class ShopWebClientConfig {
     @Bean
-    public WebClient shopApiClient() {
-        return WebClient.create();
+    public WebClient shopApiClient(@Value("${shop.endpoint}") String endpoint) {
+        return WebClient.create(endpoint);
     }
 }

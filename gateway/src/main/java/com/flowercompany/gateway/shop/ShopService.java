@@ -1,11 +1,16 @@
 package com.flowercompany.gateway.shop;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 
+@Slf4j
 @Service
 public class ShopService {
     private static WebClient shopApiClient;
@@ -16,10 +21,29 @@ public class ShopService {
     }
 
     public String order(Object object) {
-        return "I got bouquet";
+        log.info("[Gateway] Ordering the bouquet...");
+
+        return shopApiClient
+                .post()
+                .uri("/api/v1/order")
+                .accept(MediaType.APPLICATION_JSON)
+                .body(Mono.just(object), Object.class)
+                .retrieve()
+                .bodyToMono(String.class)
+                .onErrorReturn("Error with your query!")
+                .block();
     }
 
     public List<String> checkOrders() {
-        return List.of("id1", "id2");
+        log.info("[Gateway] Getting ids of all known orders...");
+
+        return shopApiClient
+                .get()
+                .uri("/api/v1/orders")
+                .retrieve()
+                .bodyToFlux(String.class)
+                .collectList()
+                .onErrorReturn(List.of("Error with your query!"))
+                .block();
     }
 }
