@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:tns="http://ws.status.factory.flowercompany.com"
+           targetNamespace="http://ws.status.factory.flowercompany.com"
+           elementFormDefault="qualified"
+>
+
+    <xs:element name="getStatusRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getStatusResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="status" type="tns:status"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="status">
+        <xs:sequence>
+            <xs:element name="id" type="xs:string"/>
+            <xs:element name="code" type="xs:string"/>
+            <xs:element name="price" type="xs:int"/>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>

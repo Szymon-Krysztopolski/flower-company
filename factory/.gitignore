@@ -1,3 +1,6 @@
+src/main/java/com/flowercompany/factory/status/ws
+META-INF
+
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
