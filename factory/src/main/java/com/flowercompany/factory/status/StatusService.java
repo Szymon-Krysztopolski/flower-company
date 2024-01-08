@@ -9,6 +9,7 @@ public class StatusService {
         Status status = new Status();
 
         // TODO
+        status.setId(id);
         status.setCode("OK");
         status.setPrice(50);
         return status;

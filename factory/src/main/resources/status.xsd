@@ -23,6 +23,7 @@
 
     <xs:complexType name="status">
         <xs:sequence>
+            <xs:element name="id" type="xs:string"/>
             <xs:element name="code" type="xs:string"/>
             <xs:element name="price" type="xs:int"/>
         </xs:sequence>

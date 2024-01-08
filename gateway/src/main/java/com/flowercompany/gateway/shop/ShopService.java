@@ -1,5 +1,6 @@
 package com.flowercompany.gateway.shop;
 
+import com.flowercompany.gateway.dto.Bouquet;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,14 +21,14 @@ public class ShopService {
         ShopService.shopApiClient = shopApiClient;
     }
 
-    public String order(Object object) {
+    public String order(Bouquet bouquet) {
         log.info("[Gateway] Ordering the bouquet...");
 
         return shopApiClient
                 .post()
                 .uri("/api/v1/order")
                 .accept(MediaType.APPLICATION_JSON)
-                .body(Mono.just(object), Object.class)
+                .body(Mono.just(bouquet), Bouquet.class)
                 .retrieve()
                 .bodyToMono(String.class)
                 .onErrorReturn("Error with your query!")

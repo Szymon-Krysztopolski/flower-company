@@ -1,5 +1,6 @@
 package com.flowercompany.gateway.api;
 
+import com.flowercompany.gateway.dto.Bouquet;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,8 +16,8 @@ public class GatewayController {
     }
 
     @PostMapping("/order")
-    public ResponseEntity<String> order(@RequestBody Object object) {
-        return ResponseEntity.ok(service.order(object));
+    public ResponseEntity<String> order(@RequestBody Bouquet bouquet) {
+        return ResponseEntity.ok(service.order(bouquet));
     }
 
     @GetMapping("/orders")

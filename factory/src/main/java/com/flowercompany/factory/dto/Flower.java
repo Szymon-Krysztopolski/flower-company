@@ -1,4 +1,4 @@
-package com.flowercompany.shop.domain;
+package com.flowercompany.factory.dto;
 
 import lombok.Getter;
 
