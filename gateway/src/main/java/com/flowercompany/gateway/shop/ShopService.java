@@ -3,7 +3,8 @@ package com.flowercompany.gateway.shop;
 import com.flowercompany.gateway.dto.Bouquet;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -41,10 +42,16 @@ public class ShopService {
         return shopApiClient
                 .get()
                 .uri("/api/v1/orders")
+                .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
-                .bodyToFlux(String.class)
-                .collectList()
-                .onErrorReturn(List.of("Error with your query!"))
+                .onStatus(HttpStatusCode::isError, clientResponse ->
+                        clientResponse.bodyToMono(String.class)
+                                .flatMap(error ->
+                                        Mono.error(new Exception(error))
+                                )
+                )
+                .bodyToMono(new ParameterizedTypeReference<List<String>>() {
+                })
                 .block();
     }
 }
