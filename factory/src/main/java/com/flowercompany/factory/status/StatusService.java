@@ -3,15 +3,14 @@ package com.flowercompany.factory.status;
 import com.flowercompany.factory.status.ws.Status;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Service
 public class StatusService {
-    public Status getStatus(String id) {
-        Status status = new Status();
+    Map<String, Status> statusMap = new HashMap<>();
 
-        // TODO
-        status.setId(id);
-        status.setCode("OK");
-        status.setPrice(50);
-        return status;
+    public Status getStatus(String id) {
+        return statusMap.get(id);
     }
 }
