@@ -1,6 +1,7 @@
 package com.flowercompany.gateway.api;
 
 import com.flowercompany.gateway.dto.Bouquet;
+import com.flowercompany.gateway.factory.ws.Status;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,7 +27,7 @@ public class GatewayController {
     }
 
     @GetMapping("/status/{id}")
-    public ResponseEntity<String> status(@PathVariable String id) {
+    public ResponseEntity<Status> status(@PathVariable String id) {
         return ResponseEntity.ok(service.checkOrderStatus(id));
     }
 }

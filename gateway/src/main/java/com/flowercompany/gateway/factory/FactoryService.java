@@ -1,5 +1,6 @@
 package com.flowercompany.gateway.factory;
 
+import com.flowercompany.gateway.factory.ws.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +13,7 @@ public class FactoryService {
         this.statusClient = statusClient;
     }
 
-    public String checkOrderStatus(String id) {
-        return statusClient.getStatus(id).toString();
+    public Status checkOrderStatus(String id) {
+        return statusClient.getStatus(id).getStatus();
     }
 }

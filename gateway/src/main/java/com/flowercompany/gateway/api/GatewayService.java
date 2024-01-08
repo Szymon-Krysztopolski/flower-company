@@ -2,6 +2,7 @@ package com.flowercompany.gateway.api;
 
 import com.flowercompany.gateway.dto.Bouquet;
 import com.flowercompany.gateway.factory.FactoryService;
+import com.flowercompany.gateway.factory.ws.Status;
 import com.flowercompany.gateway.shop.ShopService;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +26,7 @@ public class GatewayService {
         return shopService.checkOrders();
     }
 
-    public String checkOrderStatus(String id) {
+    public Status checkOrderStatus(String id) {
         return factoryService.checkOrderStatus(id);
     }
 }

@@ -1,6 +1,6 @@
 package com.flowercompany.shop.api;
 
-import com.flowercompany.shop.dto.BouquetItem;
+import com.flowercompany.shop.dto.Bouquet;
 import com.flowercompany.shop.domain.OrderStatus;
 import com.flowercompany.shop.exception.OrderException;
 import lombok.extern.slf4j.Slf4j;
@@ -13,7 +13,7 @@ import java.util.*;
 public class ShopService {
     private final Map<UUID, OrderStatus> orders = new HashMap<>();
 
-    public String order(List<BouquetItem> bouquet) throws Exception {
+    public String order(Bouquet bouquet) throws Exception {
         log.info("[Shop] Processing order..");
 
         Random random = new Random();
@@ -25,6 +25,10 @@ public class ShopService {
         if (random.nextInt(100) < successProbability) {
             UUID uuid = UUID.randomUUID();
             orders.put(uuid, OrderStatus.PROCESSING);
+
+            //--------------------------------------------
+            // TODO sending order to factory...
+            //--------------------------------------------
 
             return "Order was placed with id " + uuid;
         } else {

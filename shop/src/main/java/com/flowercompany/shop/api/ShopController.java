@@ -24,7 +24,7 @@ public class ShopController {
         log.info("[Shop] I got order: {}", bouquet.toString());
 
         try {
-            return ResponseEntity.ok(service.order(bouquet.getBouquet()));
+            return ResponseEntity.ok(service.order(bouquet));
         } catch (Exception ex) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Something goes wrong...");
         }
