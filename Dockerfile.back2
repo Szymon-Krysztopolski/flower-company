@@ -1,0 +1,17 @@
+FROM maven:3.9.2-eclipse-temurin-17-alpine as builder
+ARG WORKDIR
+WORKDIR /${WORKDIR}
+COPY /${WORKDIR}/src /${WORKDIR}/src
+COPY /${WORKDIR}/pom.xml /${WORKDIR}
+COPY /${WORKDIR}/status.wsdl /${WORKDIR}
+# RUN curl -f http://flower-company-backend-factory-1:8083/ws/status.wsdl
+RUN mvn clean install
+
+
+FROM eclipse-temurin:17-alpine as server
+ARG WORKDIR
+ARG PORT
+ARG JAR_FILE=/${WORKDIR}/target/*.jar
+COPY --from=builder ${JAR_FILE} app.jar
+EXPOSE ${PORT}
+ENTRYPOINT ["java", "-jar", "/app.jar"]

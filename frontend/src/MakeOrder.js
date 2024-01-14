@@ -59,11 +59,11 @@ function SummaryItem({ title, count, onCountChange, onDelete }) {
 }
 export default function MakeOrder() {
     const images = [
-        { src: 'white-rose.jpg', title: 'White rose' },
-        { src: 'red-rose.jpg', title: 'Red rose' },
-        { src: 'lily.jpg', title: 'Lily' },
-        { src: 'iris.jpg', title: 'Iris' },
-        { src: 'tulip.jpg', title: 'Tulip' },
+        { src: 'white-rose.jpg', title: 'WHITE_ROSE' },
+        { src: 'red-rose.jpg', title: 'RED_ROSE' },
+        { src: 'lily.jpg', title: 'LILY' },
+        { src: 'iris.jpg', title: 'IRIS' },
+        { src: 'tulip.jpg', title: 'TULIP' },
     ];
     const [selectedItems, setSelectedItems] = useState(images.map(image => ({ title: image.title, count: 0 })));
     const handleCountChange = (title, newCount) => {

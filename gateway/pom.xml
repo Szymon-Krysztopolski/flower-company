@@ -88,7 +88,7 @@
                 </executions>
                 <configuration>
                     <wsdlUrls>
-                        <wsdlUrl>http://localhost:8083/ws/status.wsdl</wsdlUrl>
+                        <wsdlUrl>${project.basedir}/status.wsdl</wsdlUrl>
                     </wsdlUrls>
                     <extension>true</extension>
                     <packageName>com.flowercompany.gateway.factory.ws</packageName>
