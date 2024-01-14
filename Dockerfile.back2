@@ -4,11 +4,10 @@ WORKDIR /${WORKDIR}
 COPY /${WORKDIR}/src /${WORKDIR}/src
 COPY /${WORKDIR}/pom.xml /${WORKDIR}
 COPY /${WORKDIR}/status.wsdl /${WORKDIR}
-# RUN curl -f http://flower-company-backend-factory-1:8083/ws/status.wsdl
 RUN mvn clean install
 
-
 FROM eclipse-temurin:17-alpine as server
+RUN apk --no-cache add curl
 ARG WORKDIR
 ARG PORT
 ARG JAR_FILE=/${WORKDIR}/target/*.jar
