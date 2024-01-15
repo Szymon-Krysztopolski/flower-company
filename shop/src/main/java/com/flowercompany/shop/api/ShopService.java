@@ -1,6 +1,6 @@
 package com.flowercompany.shop.api;
 
-import com.flowercompany.shop.dto.Bouquet;
+import com.flowercompany.shared.Bouquet;
 import com.flowercompany.shop.domain.OrderStatus;
 import com.flowercompany.shop.exception.OrderException;
 import lombok.extern.slf4j.Slf4j;

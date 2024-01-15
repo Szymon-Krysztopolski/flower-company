@@ -1,4 +1,4 @@
-package com.flowercompany.factory.dto;
+package com.flowercompany.shared;
 
 import lombok.Getter;
 

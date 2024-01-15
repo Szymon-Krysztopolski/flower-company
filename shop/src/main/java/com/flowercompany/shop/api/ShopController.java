@@ -1,6 +1,6 @@
 package com.flowercompany.shop.api;
 
-import com.flowercompany.shop.dto.Bouquet;
+import com.flowercompany.shared.Bouquet;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
