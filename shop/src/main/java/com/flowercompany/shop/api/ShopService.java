@@ -4,10 +4,7 @@ import com.flowercompany.shop.dto.Bouquet;
 import com.flowercompany.shop.domain.OrderStatus;
 import com.flowercompany.shop.exception.OrderException;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -34,10 +31,9 @@ public class ShopService {
         if (random.nextInt(100) < successProbability) {
             UUID uuid = UUID.randomUUID();
             orders.put(uuid, OrderStatus.PROCESSING);
+            bouquet.setUuid(uuid);
 
-            //--------------------------------------------
-            rabbitTemplate.convertAndSend("flowerQueue", uuid.toString());
-            //--------------------------------------------
+            rabbitTemplate.convertAndSend("flowerQueue", bouquet);
 
             return "Order was placed with id " + uuid;
         } else {
