@@ -1,11 +1,12 @@
-package com.flowercompany.gateway.dto;
+package com.flowercompany.shop.domain;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 
-@Getter
+@Data
 @AllArgsConstructor
 public class Order {
     private String id;
-    private String code;
+    private OrderStatus code;
 }

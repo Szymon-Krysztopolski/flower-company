@@ -1,7 +1,7 @@
 package com.flowercompany.gateway.api;
 
-import com.flowercompany.gateway.dto.Bouquet;
-import com.flowercompany.gateway.dto.Order;
+import com.flowercompany.gateway.domain.Bouquet;
+import com.flowercompany.gateway.domain.Order;
 import com.flowercompany.gateway.factory.FactoryService;
 import com.flowercompany.gateway.factory.ws.Status;
 import com.flowercompany.gateway.shop.ShopService;
@@ -25,7 +25,7 @@ public class GatewayService {
     }
 
     public List<Order> checkOrders() {
-        return shopService.checkOrders().stream().map(id -> new Order(id, "OK")).collect(Collectors.toList());
+        return shopService.checkOrders();
     }
 
     public Status checkOrderStatus(String id) {

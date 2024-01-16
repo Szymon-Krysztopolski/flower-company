@@ -1,8 +1,10 @@
 package com.flowercompany.shop.api;
 
 import com.flowercompany.shared.Bouquet;
+import com.flowercompany.shop.domain.Order;
 import com.flowercompany.shop.domain.OrderStatus;
 import com.flowercompany.shop.exception.OrderException;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
@@ -13,7 +15,8 @@ import java.util.*;
 @Service
 public class ShopService {
     private final RabbitTemplate rabbitTemplate;
-    private final Map<UUID, OrderStatus> orders = new HashMap<>();
+    @Getter
+    private final List<Order> orders = new ArrayList<>();
 
     public ShopService(RabbitTemplate rabbitTemplate) {
         this.rabbitTemplate = rabbitTemplate;
@@ -30,7 +33,7 @@ public class ShopService {
 
         if (random.nextInt(100) < successProbability) {
             UUID uuid = UUID.randomUUID();
-            orders.put(uuid, OrderStatus.PROCESSING);
+            orders.add(new Order(uuid.toString(), OrderStatus.OK));
             bouquet.setUuid(uuid);
 
             rabbitTemplate.convertAndSend("flowerQueue", bouquet);
@@ -40,9 +43,5 @@ public class ShopService {
             log.error("[Shop] Error with query!");
             throw new OrderException();
         }
-    }
-
-    public List<UUID> getOrders() {
-        return orders.keySet().stream().toList();
     }
 }

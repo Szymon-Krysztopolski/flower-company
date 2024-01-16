@@ -1,4 +1,4 @@
-package com.flowercompany.shop.domain;
+package com.flowercompany.gateway.domain;
 
 public enum OrderStatus {
     OK,

@@ -1,6 +1,7 @@
 package com.flowercompany.shop.api;
 
 import com.flowercompany.shared.Bouquet;
+import com.flowercompany.shop.domain.Order;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +33,7 @@ public class ShopController {
     }
 
     @GetMapping("/orders")
-    public ResponseEntity<List<UUID>> checkOrders() {
+    public ResponseEntity<List<Order>> checkOrders() {
         log.info("[Shop] I someone ask for list of orders");
         return ResponseEntity.ok(service.getOrders());
     }

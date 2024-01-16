@@ -1,6 +1,7 @@
 package com.flowercompany.gateway.shop;
 
-import com.flowercompany.gateway.dto.Bouquet;
+import com.flowercompany.gateway.domain.Bouquet;
+import com.flowercompany.gateway.domain.Order;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
@@ -36,7 +37,7 @@ public class ShopService {
                 .block();
     }
 
-    public List<String> checkOrders() { // todo change - get orders with codes OK, CANCELLED
+    public List<Order> checkOrders() {
         log.info("[Gateway] Getting ids of all known orders...");
 
         return shopApiClient
@@ -50,7 +51,7 @@ public class ShopService {
                                         Mono.error(new Exception(error))
                                 )
                 )
-                .bodyToMono(new ParameterizedTypeReference<List<String>>() {
+                .bodyToMono(new ParameterizedTypeReference<List<Order>>() {
                 })
                 .block();
     }
