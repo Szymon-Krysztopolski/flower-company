@@ -29,12 +29,7 @@ services:
       - shared-network
 
   backend-gateway:
-    build:
-      context: .
-      dockerfile: ./Dockerfile.back2
-      args:
-        WORKDIR: gateway
-        PORT: 8081
+    build: gateway
     environment:
       SHOP_ENDPOINT: $SHOP_ENDPOINT
       FACTORY_ENDPOINT: $FACTORY_ENDPOINT

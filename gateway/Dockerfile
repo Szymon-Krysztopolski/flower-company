@@ -9,8 +9,7 @@ RUN mvn clean install
 FROM eclipse-temurin:17-alpine as server
 RUN apk --no-cache add curl
 ARG WORKDIR
-ARG PORT
 ARG JAR_FILE=/${WORKDIR}/target/*.jar
 COPY --from=builder ${JAR_FILE} app.jar
-EXPOSE ${PORT}
+EXPOSE 8081
 ENTRYPOINT ["java", "-jar", "/app.jar"]
