@@ -1,6 +1,7 @@
 package com.flowercompany.gateway.api;
 
 import com.flowercompany.gateway.dto.Bouquet;
+import com.flowercompany.gateway.dto.Order;
 import com.flowercompany.gateway.factory.ws.Status;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +24,7 @@ public class GatewayController {
     }
 
     @GetMapping("/orders")
-    public ResponseEntity<List<String>> checkOrders() {
+    public ResponseEntity<List<Order>> checkOrders() {
         return ResponseEntity.ok(service.checkOrders());
     }
 

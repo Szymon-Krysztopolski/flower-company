@@ -36,7 +36,7 @@ public class ShopService {
                 .block();
     }
 
-    public List<String> checkOrders() {
+    public List<String> checkOrders() { // todo change - get orders with codes OK, CANCELLED
         log.info("[Gateway] Getting ids of all known orders...");
 
         return shopApiClient
