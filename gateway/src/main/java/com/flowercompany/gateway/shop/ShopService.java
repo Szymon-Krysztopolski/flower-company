@@ -54,4 +54,21 @@ public class ShopService {
                 })
                 .block();
     }
+
+    public static final String ORDERS_EXAMPLE_JSON = """  
+            [
+                {
+                  "id": "id1",
+                  "code": "OK"
+                },
+                {
+                  "id": "id2",
+                  "code": "CANCELLED"
+                },
+                {
+                  "id": "id3",
+                  "code": "OK"
+                }
+            ]
+            """;
 }

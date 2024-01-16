@@ -16,4 +16,18 @@ public class FactoryService {
     public Status checkOrderStatus(String id) {
         return statusClient.getStatus(id).getStatus();
     }
+
+    public static final String STATUS_EXAMPLE_OK_JSON = """
+            {
+              "id": "id123",
+              "code": "OK",
+              "price": 50
+            }
+            """;
+    public static final String STATUS_EXAMPLE_NOK_JSON = """
+            {
+              "id": "id123",
+              "code": "NOK"
+            }
+            """;
 }
