@@ -42,6 +42,13 @@ services:
       dockerfile: ./Dockerfile.front
     ports:
       - "3000:3000"
+  rabbitmq:
+    image: rabbitmq:management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - shared-network
 
 networks:
   shared-network:
