@@ -15,6 +15,11 @@ public class RabbitMQConfig {
     }
 
     @Bean
+    public Queue errorQueue() {
+        return new Queue("errorQueue", false);
+    }
+
+    @Bean
     public SimpleMessageConverter converter() {
         SimpleMessageConverter converter = new SimpleMessageConverter();
         converter.setAllowedListPatterns(List.of(

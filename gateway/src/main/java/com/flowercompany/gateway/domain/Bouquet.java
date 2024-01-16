@@ -1,4 +1,4 @@
-package com.flowercompany.gateway.dto;
+package com.flowercompany.gateway.domain;
 
 import lombok.Data;
 
