@@ -6,6 +6,7 @@ import com.flowercompany.shop.domain.OrderStatus;
 import com.flowercompany.shop.exception.OrderException;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 
@@ -43,5 +44,14 @@ public class ShopService {
             log.error("[Shop] Error with query!");
             throw new OrderException();
         }
+    }
+
+    @RabbitListener(queues = "errorQueue")
+    public void listen(String errorId) {
+        log.info("[Shop] Message read from errorQueue: {}", errorId);
+
+        orders.stream()
+                .filter(o -> o.getId().equals(errorId))
+                .findFirst().ifPresent(Order::cancel);
     }
 }

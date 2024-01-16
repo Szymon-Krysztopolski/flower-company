@@ -24,8 +24,6 @@ public class ShopService {
     }
 
     public String order(Bouquet bouquet) {
-        log.info("[Gateway] Ordering the bouquet...");
-
         return shopApiClient
                 .post()
                 .uri("/api/v1/order")
@@ -33,13 +31,11 @@ public class ShopService {
                 .body(Mono.just(bouquet), Bouquet.class)
                 .retrieve()
                 .bodyToMono(String.class)
-                .onErrorReturn("Error with your query!")
+                .onErrorReturn("Error with your order!")
                 .block();
     }
 
     public List<Order> checkOrders() {
-        log.info("[Gateway] Getting ids of all known orders...");
-
         return shopApiClient
                 .get()
                 .uri("/api/v1/orders")

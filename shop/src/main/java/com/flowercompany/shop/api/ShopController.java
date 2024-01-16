@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @Slf4j
 @RestController
@@ -28,7 +27,7 @@ public class ShopController {
             return ResponseEntity.ok(service.order(bouquet));
         } catch (Exception ex) {
             log.error(ex.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Something goes wrong...");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Something went wrong...");
         }
     }
 
