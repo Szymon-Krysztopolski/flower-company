@@ -2,6 +2,7 @@ package com.flowercompany.gateway.shop;
 
 import com.flowercompany.gateway.domain.Bouquet;
 import com.flowercompany.gateway.domain.Order;
+import com.flowercompany.gateway.exception.OrderException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
@@ -31,7 +32,9 @@ public class ShopService {
                 .body(Mono.just(bouquet), Bouquet.class)
                 .retrieve()
                 .bodyToMono(String.class)
-                .onErrorReturn("Error with your order!")
+                .onErrorResume(throwable -> {
+                    throw new OrderException(throwable);
+                })
                 .block();
     }
 

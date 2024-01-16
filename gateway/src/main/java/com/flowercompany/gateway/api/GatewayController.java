@@ -24,7 +24,13 @@ public class GatewayController {
     @PostMapping("/order")
     public ResponseEntity<String> order(@RequestBody Bouquet bouquet) {
         log.info("[Gateway] Ordering the bouquet...");
-        return ResponseEntity.ok(service.order(bouquet));
+
+        try {
+            return ResponseEntity.ok(service.order(bouquet));
+        } catch (Exception ex) {
+            log.error("[Gateway] Error during ordering the bouquet", ex);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+        }
     }
 
     @GetMapping("/orders")

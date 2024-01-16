@@ -28,7 +28,7 @@ public class ShopService {
 
         Random random = new Random();
         int secondsOfShoppingProcess = 3;
-        int successProbability = 90;
+        int successProbability = 80;
 
         Thread.sleep(random.nextInt(1000 * secondsOfShoppingProcess));
 
