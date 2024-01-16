@@ -6,7 +6,7 @@ function Modal({ isOpen, orderStatus, orderId, onClose }) {
             <div className="modal-content">
                 {orderStatus === 'success' && <strong>Order placed successfully!</strong>}
                 {orderStatus === 'failure' && <strong>Failed to place order.</strong>}
-                {orderId && <div>Your order has number: {orderId}</div>}
+                {orderStatus === 'success' && <div>Your order has number: <strong>{orderId}</strong></div>}
                 <button onClick={onClose}>Close</button>
             </div>
         </div>
