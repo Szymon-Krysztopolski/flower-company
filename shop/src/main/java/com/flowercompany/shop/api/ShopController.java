@@ -1,6 +1,6 @@
 package com.flowercompany.shop.api;
 
-import com.flowercompany.shop.dto.Bouquet;
+import com.flowercompany.shared.Bouquet;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +26,7 @@ public class ShopController {
         try {
             return ResponseEntity.ok(service.order(bouquet));
         } catch (Exception ex) {
+            log.error(ex.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Something goes wrong...");
         }
     }
