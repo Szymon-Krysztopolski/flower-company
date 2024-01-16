@@ -7,6 +7,8 @@ services:
       args:
         WORKDIR: factory
         PORT: 8083
+    environment:
+      RABBITMQ_HOST: $RABBITMQ_HOST
     ports:
       - "8083:8083"
     networks:
@@ -19,6 +21,8 @@ services:
       args:
         WORKDIR: shop
         PORT: 8082
+    environment:
+      RABBITMQ_HOST: $RABBITMQ_HOST
     ports:
       - "8082:8082"
     networks:
@@ -45,6 +49,7 @@ services:
       dockerfile: ./Dockerfile.front
     ports:
       - "3000:3000"
+
   rabbitmq:
     image: rabbitmq:management
     ports:
