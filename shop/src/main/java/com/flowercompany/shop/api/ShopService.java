@@ -35,7 +35,7 @@ public class ShopService {
 
             rabbitTemplate.convertAndSend("flowerQueue", bouquet);
 
-            return "Order was placed with id " + uuid;
+            return uuid.toString();
         } else {
             log.error("[Shop] Error with query!");
             throw new OrderException();

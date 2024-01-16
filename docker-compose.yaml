@@ -1,7 +1,7 @@
 version: '3'
 services:
   backend-factory:
-    build: 
+    build:
       context: .
       dockerfile: ./Dockerfile.back
       args:
@@ -13,7 +13,7 @@ services:
       - shared-network
 
   backend-shop:
-    build: 
+    build:
       context: .
       dockerfile: ./Dockerfile.back
       args:
@@ -25,12 +25,15 @@ services:
       - shared-network
 
   backend-gateway:
-    build: 
+    build:
       context: .
       dockerfile: ./Dockerfile.back2
       args:
         WORKDIR: gateway
         PORT: 8081
+    environment:
+      SHOP_ENDPOINT: $SHOP_ENDPOINT
+      FACTORY_ENDPOINT: $FACTORY_ENDPOINT
     ports:
       - "8081:8081"
     networks:
@@ -53,6 +56,4 @@ services:
 networks:
   shared-network:
     driver: bridge
-    name: shared-network
     external: true
-
