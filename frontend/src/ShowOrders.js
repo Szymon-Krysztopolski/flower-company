@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
-import './style.css'; // Import the CSS file
-
+import './style.css';
 export default function ShowOrders() {
     const [orderIds, setOrderIds] = useState([]);
     const [showDropdown, setShowDropdown] = useState(true);
     const [orders, setOrders] = useState([]);
     const [selectedOrder, setSelectedOrder] = useState(null);
-    const [activeOption, setActiveOption] = useState("Selected"); // Add state for active option
+    const [activeOption, setActiveOption] = useState("Selected");
 
     const fetchOrderIds = async () => {
         const response = await fetch('http://127.0.0.1:8081/api/v1/orders', {
@@ -22,6 +21,7 @@ export default function ShowOrders() {
     };
 
     useEffect(() => {
+        setOrderIds([]);
         fetchOrderIds();
     }, []);
 
@@ -33,16 +33,16 @@ export default function ShowOrders() {
                 const jsonResponse = await response.json();
                 allOrders.push({
                     id: jsonResponse.id,
-                    status: jsonResponse.status,
+                    status: jsonResponse.code,
                     price: jsonResponse.price,
                     isOpen: true
                 });
             }
         }
         setOrders(allOrders);
-        setShowDropdown(false); // Hide the dropdown
-        setSelectedOrder(null); // Clear the selected order
-        setActiveOption("All"); // Set active option to "All"
+        setShowDropdown(false);
+        setSelectedOrder(null);
+        setActiveOption("All");
     };
 
     const handleSelectChange = async (event) => {
@@ -56,11 +56,11 @@ export default function ShowOrders() {
             const jsonResponse = await response.json();
             setSelectedOrder({
                 id: jsonResponse.id,
-                status: jsonResponse.status,
+                status: jsonResponse.code,
                 price: jsonResponse.price,
                 isOpen: true
             });
-            setOrders([]); // Clear the orders
+            setOrders([]);
         }
     };
 
