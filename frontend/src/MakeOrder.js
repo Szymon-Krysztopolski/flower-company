@@ -6,25 +6,13 @@ function Modal({ isOpen, orderStatus, orderId, onClose }) {
             <div className="modal-content">
                 {orderStatus === 'success' && <strong>Order placed successfully!</strong>}
                 {orderStatus === 'failure' && <strong>Failed to place order.</strong>}
-                {orderId && <div>Your order has number: {orderId}</div>}
+                {orderStatus === 'success' && <div>Your order has number: <strong>{orderId}</strong></div>}
                 <button onClick={onClose}>Close</button>
             </div>
         </div>
     );
 }
-function ModalPrice({ isOpen, orderId, orderStatus, orderPrice, onClose }) {
-    if (!isOpen) return null;
-    return (
-        <div className="modal">
-            <div className="modal-content">
-                {orderId && <div>Your order number: <strong>{orderId}</strong></div>}
-                {orderStatus && <div>Status: <strong>{orderStatus}</strong></div>}
-                {orderPrice && <div>Price: <strong>{orderPrice}</strong></div>}
-                <button onClick={onClose}>Close</button>
-            </div>
-        </div>
-    );
-}
+
 
 function Rectangle({ src, title, count, onCountChange }) {
     return (
@@ -59,11 +47,11 @@ function SummaryItem({ title, count, onCountChange, onDelete }) {
 }
 export default function MakeOrder() {
     const images = [
-        { src: 'white-rose.jpg', title: 'White rose' },
-        { src: 'red-rose.jpg', title: 'Red rose' },
-        { src: 'lily.jpg', title: 'Lily' },
-        { src: 'iris.jpg', title: 'Iris' },
-        { src: 'tulip.jpg', title: 'Tulip' },
+        { src: 'white-rose.jpg', title: 'WHITE_ROSE' },
+        { src: 'red-rose.jpg', title: 'RED_ROSE' },
+        { src: 'lily.jpg', title: 'LILY' },
+        { src: 'iris.jpg', title: 'IRIS' },
+        { src: 'tulip.jpg', title: 'TULIP' },
     ];
     const [selectedItems, setSelectedItems] = useState(images.map(image => ({ title: image.title, count: 0 })));
     const handleCountChange = (title, newCount) => {
@@ -107,27 +95,8 @@ export default function MakeOrder() {
     const closeModal = async () => {
         setModalOpen(false);
         setSelectedItems(images.map(image => ({ title: image.title, count: 0 })));
-        let orderStatusResponse;
-        while (!orderStatusResponse) {
-            const response = await fetch(`http://127.0.0.1:8081/api/v1/status/${orderId}`);
-            if (response.ok) {
-                const jsonResponse = await response.json();
-                setOrders(prevOrders => [...prevOrders, {
-                    id: jsonResponse.id,
-                    status: jsonResponse.status,
-                    price: jsonResponse.price,
-                    isOpen: true
-                }]);
-                orderStatusResponse = true;
-            }
-        }
     };
     
-    
-
-    const closeModalPrice = (index) => {
-        setOrders(prevOrders => prevOrders.map((order, i) => i === index ? {...order, isOpen: false} : order));
-    };
 
     return (
         <div className="container">
@@ -147,16 +116,6 @@ export default function MakeOrder() {
                 
             </div>
             <Modal isOpen={modalOpen} orderStatus={orderStatus} orderId={orderId} onClose={closeModal} />
-            {orders.map((order, index) => (
-                <ModalPrice 
-                    key={index} 
-                    isOpen={order.isOpen} 
-                    orderId={order.id} 
-                    orderStatus={order.status} 
-                    orderPrice={order.price} 
-                    onClose={() => closeModalPrice(index)} 
-                />
-            ))}
 
         </div>
     );

@@ -1,6 +1,8 @@
 package com.flowercompany.gateway.shop;
 
-import com.flowercompany.gateway.dto.Bouquet;
+import com.flowercompany.gateway.domain.Bouquet;
+import com.flowercompany.gateway.domain.Order;
+import com.flowercompany.gateway.exception.OrderException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
@@ -23,8 +25,6 @@ public class ShopService {
     }
 
     public String order(Bouquet bouquet) {
-        log.info("[Gateway] Ordering the bouquet...");
-
         return shopApiClient
                 .post()
                 .uri("/api/v1/order")
@@ -32,13 +32,13 @@ public class ShopService {
                 .body(Mono.just(bouquet), Bouquet.class)
                 .retrieve()
                 .bodyToMono(String.class)
-                .onErrorReturn("Error with your query!")
+                .onErrorResume(throwable -> {
+                    throw new OrderException(throwable);
+                })
                 .block();
     }
 
-    public List<String> checkOrders() {
-        log.info("[Gateway] Getting ids of all known orders...");
-
+    public List<Order> checkOrders() {
         return shopApiClient
                 .get()
                 .uri("/api/v1/orders")
@@ -50,8 +50,25 @@ public class ShopService {
                                         Mono.error(new Exception(error))
                                 )
                 )
-                .bodyToMono(new ParameterizedTypeReference<List<String>>() {
+                .bodyToMono(new ParameterizedTypeReference<List<Order>>() {
                 })
                 .block();
     }
+
+    public static final String ORDERS_EXAMPLE_JSON = """  
+            [
+                {
+                  "id": "id1",
+                  "code": "OK"
+                },
+                {
+                  "id": "id2",
+                  "code": "CANCELLED"
+                },
+                {
+                  "id": "id3",
+                  "code": "OK"
+                }
+            ]
+            """;
 }

@@ -10,4 +10,9 @@ public class RabbitMQConfig {
     public Queue flowerQueue() {
         return new Queue("flowerQueue", false);
     }
+
+    @Bean
+    public Queue errorQueue() {
+        return new Queue("errorQueue", false);
+    }
 }
